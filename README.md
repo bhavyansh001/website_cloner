@@ -21,6 +21,7 @@ Website Cloner is a Ruby tool that allows you to clone websites locally, includi
 2. Install dependencies:
    ```
    bundle install
+   chmod +x bin/website-cloner
    ```
 
 ## Usage
