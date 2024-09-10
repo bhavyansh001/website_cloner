@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/website_cloner'
+
+if ARGV.length < 2 || ARGV.length > 3
+  puts "Usage: website-cloner <url> <output_directory> [max_pages]"
+  exit 1
+end
+
+url = ARGV[0]
+output_dir = ARGV[1]
+max_pages = ARGV[2] ? ARGV[2].to_i : 20
+
+WebsiteCloner.clone(url, output_dir, max_pages: max_pages)
