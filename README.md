@@ -41,7 +41,7 @@ Dependencies: nokogiri v1.15, httparty v0.21, openssl v3.0
 The Website Cloner can be used from the command line:
 
 ```bash
-ruby -r website_cloner -e 'WebsiteCloner.clone("https://example.com", "./output_dir", max_pages: 10, session_cookie: "user_session=endoded_cookie_string")'
+website-cloner https://example.com output_dir -m 10 -s "user_session=endoded_cookie_string"
 ```
 This example will clone https://example.com, download up to 10 pages, and store the result in the ./output_dir directory.
 
