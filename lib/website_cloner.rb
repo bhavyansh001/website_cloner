@@ -6,7 +6,7 @@ require 'set'
 module WebsiteCloner
   class Error < StandardError; end
 
-  def self.clone(url, output_dir, max_pages: 100, session_cookie: nil)
+  def self.clone(url, output_dir, max_pages: 20, session_cookie: nil)
     Utils.logger.info "Starting to clone #{url}"
     downloader = Downloader.new(url, output_dir, session_cookie)
     parser = Parser.new(downloader)

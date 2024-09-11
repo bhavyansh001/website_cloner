@@ -39,31 +39,15 @@ $ gem install website_cloner
 
 The Website Cloner can be used from the command line:
 
+```bash
+ruby -r website_cloner -e 'WebsiteCloner.clone("https://example.com", "./output_dir", max_pages: 10, session_cookie: "user_session=endoded_cookie_string")'
 ```
-website-cloner <url> <output_directory> [options]
-```
+This example will clone https://example.com, download up to 10 pages, and store the result in the ./output_dir directory.
 
 Options:
 - `-m, --max-pages PAGES`: Maximum number of pages to clone (default: 20)
 - `-s, --session-cookie COOKIE`: Session cookie for authenticated access
 - `-h, --help`: Prints help information
-
-Examples:
-
-1. Basic usage:
-   ```
-   website-cloner https://example.com ./cloned_site
-   ```
-
-2. Specifying max pages:
-   ```
-   website-cloner https://example.com ./cloned_site --max-pages 50
-   ```
-
-3. Using a session cookie:
-   ```
-   website-cloner https://example.com ./cloned_site --session-cookie "session_id=abc123; user_token=xyz789"
-   ```
 
 ### In Ruby Scripts
 
@@ -74,10 +58,12 @@ require 'website_cloner'
 
 url = "https://example.com"
 output_dir = "./cloned_site"
-max_pages = 50
-session_cookie = "session_id=abc123; user_token=xyz789"
+options: {
+   max_pages: 50,
+   session_cookie: "session_id=abc123; user_token=xyz789"
+}
 
-WebsiteCloner.clone(url, output_dir, max_pages: max_pages, session_cookie: session_cookie)
+WebsiteCloner.clone(url, output_dir, **options)
 ```
 
 ## Configuration

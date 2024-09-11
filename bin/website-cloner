@@ -34,4 +34,12 @@ end
 url = ARGV[0]
 output_dir = ARGV[1]
 
-WebsiteCloner.clone(url, output_dir, max_pages: options[:max_pages], session_cookie: options[:session_cookie])
+begin
+  WebsiteCloner.clone(url, output_dir, max_pages: options[:max_pages], session_cookie: options[:session_cookie])
+
+  puts "\nWebsite cloned successfully!"
+rescue StandardError => e
+  puts "\nAn error occurred during cloning: #{e.message}"
+rescue Interrupt
+  puts "\nOK, exiting on interrupt."
+end
