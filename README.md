@@ -87,3 +87,7 @@ Website Cloner provides colored logging for better visibility. Log messages are 
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/bhavyansh001/website_cloner. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](https://contributor-covenant.org) code of conduct.
+
+## License
+
+Website Cloner is released under the MIT License.
