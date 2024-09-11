@@ -17,4 +17,10 @@ Gem::Specification.new do |s|
 
   s.executables = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
   s.require_paths = ["lib"]
+
+  s.add_dependency "nokogiri", "~> 1.15"
+  s.add_dependency "httparty", "~> 0.21"
+  s.add_dependency "openssl", "~> 3.0"
+  s.add_development_dependency "rspec"
+  s.add_development_dependency "webmock"
 end
