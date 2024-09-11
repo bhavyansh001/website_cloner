@@ -32,6 +32,7 @@ Or install it yourself as:
 ```
 $ gem install website_cloner
 ```
+Dependencies: nokogiri v1.15, httparty v0.21, openssl v3.0
 
 ## Usage
 
