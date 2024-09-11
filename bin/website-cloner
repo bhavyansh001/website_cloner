@@ -1,14 +1,37 @@
 #!/usr/bin/env ruby
 
 require_relative '../lib/website_cloner'
+require 'optparse'
 
-if ARGV.length < 2 || ARGV.length > 3
-  puts "Usage: website-cloner <url> <output_directory> [max_pages]"
+options = {
+  max_pages: 20,
+  session_cookie: nil
+}
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: website-cloner <url> <output_directory> [options]"
+
+  opts.on("-m", "--max-pages PAGES", Integer, "Maximum number of pages to clone (default: 20)") do |m|
+    options[:max_pages] = m
+  end
+
+  opts.on("-s", "--session-cookie COOKIE", "Session cookie for authenticated access") do |s|
+    options[:session_cookie] = s
+  end
+
+  opts.on("-h", "--help", "Prints this help") do
+    puts opts
+    exit
+  end
+end.parse!
+
+if ARGV.length != 2
+  puts "Usage: website-cloner <url> <output_directory> [options]"
+  puts "Run 'website-cloner --help' for more information."
   exit 1
 end
 
 url = ARGV[0]
 output_dir = ARGV[1]
-max_pages = ARGV[2] ? ARGV[2].to_i : 20
 
-WebsiteCloner.clone(url, output_dir, max_pages: max_pages)
+WebsiteCloner.clone(url, output_dir, max_pages: options[:max_pages], session_cookie: options[:session_cookie])

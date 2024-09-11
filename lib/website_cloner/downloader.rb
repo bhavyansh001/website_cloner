@@ -5,11 +5,12 @@ require 'openssl'
 
 module WebsiteCloner
   class Downloader
-    attr_reader :output_dir, :base_url
+    attr_reader :output_dir, :base_url, :session_cookie
 
-    def initialize(base_url, output_dir)
+    def initialize(base_url, output_dir, session_cookie = nil)
       @base_url = URI.parse(base_url)
       @output_dir = output_dir
+      @session_cookie = session_cookie
       FileUtils.mkdir_p(@output_dir)
       FileUtils.mkdir_p(File.join(@output_dir, 'assets'))
       FileUtils.mkdir_p(File.join(@output_dir, 'css'))
@@ -26,7 +27,10 @@ module WebsiteCloner
       request_path = uri.path.empty? ? '/' : uri.path
       request_path += "?#{uri.query}" if uri.query
 
-      response = http.get(request_path)
+      request = Net::HTTP::Get.new(request_path)
+      request['Cookie'] = @session_cookie if @session_cookie
+
+      response = http.request(request)
 
       case response
       when Net::HTTPSuccess
@@ -48,7 +52,10 @@ module WebsiteCloner
       request_path = uri.path.empty? ? '/' : uri.path
       request_path += "?#{uri.query}" if uri.query
 
-      response = http.get(request_path)
+      request = Net::HTTP::Get.new(request_path)
+      request['Cookie'] = @session_cookie if @session_cookie
+
+      response = http.request(request)
 
       case response
       when Net::HTTPSuccess

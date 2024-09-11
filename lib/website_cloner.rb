@@ -1,13 +1,14 @@
 require_relative 'website_cloner/downloader'
 require_relative 'website_cloner/parser'
 require_relative 'website_cloner/utils'
+require 'set'
 
 module WebsiteCloner
   class Error < StandardError; end
 
-  def self.clone(url, output_dir, max_pages: 100)
+  def self.clone(url, output_dir, max_pages: 100, session_cookie: nil)
     Utils.logger.info "Starting to clone #{url}"
-    downloader = Downloader.new(url, output_dir)
+    downloader = Downloader.new(url, output_dir, session_cookie)
     parser = Parser.new(downloader)
 
     visited_pages = Set.new
