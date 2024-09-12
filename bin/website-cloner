@@ -2,6 +2,7 @@
 
 require_relative '../lib/website_cloner'
 require 'optparse'
+require 'uri'
 
 options = {
   max_pages: 20,
@@ -9,7 +10,7 @@ options = {
 }
 
 OptionParser.new do |opts|
-  opts.banner = "Usage: website-cloner <url> <output_directory> [options]"
+  opts.banner = "Usage: website-cloner <url> [output_directory] [options]"
 
   opts.on("-m", "--max-pages PAGES", Integer, "Maximum number of pages to clone (default: 20)") do |m|
     options[:max_pages] = m
@@ -25,8 +26,8 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-if ARGV.length != 2
-  puts "Usage: website-cloner <url> <output_directory> [options]"
+if ARGV.length < 1
+  puts "Usage: website-cloner <url> [output_directory] [options]"
   puts "Run 'website-cloner --help' for more information."
   exit 1
 end
@@ -34,10 +35,16 @@ end
 url = ARGV[0]
 output_dir = ARGV[1]
 
+if output_dir.nil?
+  uri = URI.parse(url)
+  domain = uri.host.sub(/^www\./, '')
+  output_dir = "./#{domain}"
+end
+
 begin
   WebsiteCloner.clone(url, output_dir, max_pages: options[:max_pages], session_cookie: options[:session_cookie])
 
-  puts "\nWebsite cloned successfully!"
+  puts "\nWebsite cloned successfully into '#{output_dir}'!"
 rescue StandardError => e
   puts "\nAn error occurred during cloning: #{e.message}"
 rescue Interrupt

@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = "website_cloner"
-  s.version     = "0.0.4"
+  s.version     = "0.0.5"
   s.summary     = "Create local copies of websites, including all assets and linked pages."
   s.description = "Website Cloner is a Ruby gem that allows you to create local copies of websites, including all assets and linked pages. It's designed to be easy to use while providing powerful features for customization."
   s.authors     = ["Bhavyansh Yadav"]
